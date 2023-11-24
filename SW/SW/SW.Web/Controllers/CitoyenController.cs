@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SW.Models;
+using SW.Services;
 
 namespace SW.Web.Controllers
 {
     public class CitoyenController : Controller
     {
+        private readonly DivisionCitoyen _citoyenService; 
         // GET: CitoyenController
         public ActionResult Index()
         {
@@ -36,6 +39,25 @@ namespace SW.Web.Controllers
             {
                 return View();
             }
+        }
+
+        // GET: Citoyen/Add
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        // POST: Citoyen/Add
+        [HttpPost]
+        public IActionResult Add(Citoyen citoyen)
+        {
+            if (ModelState.IsValid)
+            {
+                _citoyenService.AddCitoyen(citoyen);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(citoyen);
         }
 
         // GET: CitoyenController/Edit/5

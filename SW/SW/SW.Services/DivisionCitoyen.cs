@@ -10,23 +10,35 @@ namespace SW.Services
 {
     public class DivisionCitoyen
     {
-        public CitoyenRepository CitoyenRepository { get; set; }
-
+        private readonly CitoyenRepository _citoyenRepository;
         public DivisionCitoyen(CitoyenRepository repository)
         {
-            CitoyenRepository = repository;
+            _citoyenRepository = repository;
         }
 
         public void AddCitoyen(Citoyen c)
         {
-            // Règles de gestion
-            // Age des parents, présence des parents, espèce, etc
-            CitoyenRepository.AddCitoyen(c);
+            _citoyenRepository.AddCitoyen(c);
         }
 
         public List<Citoyen> GetCitoyens()
         {
-            return CitoyenRepository.GetCitoyens();
+            return _citoyenRepository.GetCitoyens();
+        }
+
+        public Citoyen GetCitoyenById(int id)
+        {
+            return _citoyenRepository.GetCitoyenById(id);
+        }
+
+        public void UpdateEspece(Citoyen citoyen)
+        {
+            _citoyenRepository.UpdateCitoyen(citoyen);
+        }
+
+        public void DeleteCitoyen(int id)
+        {
+            _citoyenRepository.DeleteCitoyen(id);
         }
     }
 }
