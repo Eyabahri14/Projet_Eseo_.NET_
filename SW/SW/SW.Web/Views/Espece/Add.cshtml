@@ -9,10 +9,14 @@
 
 @* Utilisation des tag helpers pour faciliter la création du formulaire *@
 <form asp-controller="Espece" asp-action="Add" method="post">
+    
     <input asp-for="Nom" />
 
     <input asp-for="Longevite" />
 
     <input asp-for="Majorite" />
+
     <button type="submit">Submit</button>
+
 </form>
+

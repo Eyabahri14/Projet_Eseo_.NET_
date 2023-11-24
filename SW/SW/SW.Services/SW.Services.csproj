@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SW.DataAccessLayer\SW.DataAccessLayer.csproj" />
     <ProjectReference Include="..\SW.Models\SW.Models.csproj" />
   </ItemGroup>

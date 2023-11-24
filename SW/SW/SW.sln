@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SW.Tests", "SW.Tests\SW.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SW.Web", "SW.Web\SW.Web.csproj", "{F08E9986-599D-4BC2-BA9B-49C9E557D536}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SW.DataAccessLayer", "SW.DataAccessLayer\SW.DataAccessLayer.csproj", "{C595DF78-3815-476D-AD52-BE317D9974A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SW.DataAccessLayer", "SW.DataAccessLayer\SW.DataAccessLayer.csproj", "{C595DF78-3815-476D-AD52-BE317D9974A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,6 +8,7 @@ namespace SW.Models
 {
     public class Sanction
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public int MalusMerite { get; set; }
         public Citoyen InfligePar { get; set; }

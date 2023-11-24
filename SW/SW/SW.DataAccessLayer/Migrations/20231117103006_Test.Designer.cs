@@ -10,8 +10,8 @@ using SW.DataAccessLayer;
 namespace SW.DataAccessLayer.Migrations
 {
     [DbContext(typeof(StarWarsDBContext))]
-    [Migration("20231013070143_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231117103006_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,7 +73,7 @@ namespace SW.DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Espece");
+                    b.ToTable("Especes");
                 });
 
             modelBuilder.Entity("SW.Models.Citoyen", b =>

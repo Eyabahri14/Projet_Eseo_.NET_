@@ -4,12 +4,12 @@
 
 namespace SW.DataAccessLayer.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Espece",
+                name: "Especes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -20,7 +20,7 @@ namespace SW.DataAccessLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Espece", x => x.Id);
+                    table.PrimaryKey("PK_Especes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,17 +44,17 @@ namespace SW.DataAccessLayer.Migrations
                         column: x => x.MereBiologiqueID,
                         principalTable: "Citoyens",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Citoyens_Citoyens_PereBiologiqueID",
                         column: x => x.PereBiologiqueID,
                         principalTable: "Citoyens",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Citoyens_Espece_EspeceId",
+                        name: "FK_Citoyens_Especes_EspeceId",
                         column: x => x.EspeceId,
-                        principalTable: "Espece",
+                        principalTable: "Especes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -81,7 +81,7 @@ namespace SW.DataAccessLayer.Migrations
                 name: "Citoyens");
 
             migrationBuilder.DropTable(
-                name: "Espece");
+                name: "Especes");
         }
     }
 }

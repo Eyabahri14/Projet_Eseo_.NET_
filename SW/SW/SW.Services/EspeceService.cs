@@ -1,25 +1,41 @@
 ﻿using SW.DataAccessLayer;
 using SW.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SW.Services
 {
     public class EspeceService
     {
-        public EspeceRepository EspeceRepository { get; set; }
+        private readonly EspeceRepository _especeRepository;
 
         public EspeceService(EspeceRepository especeRepository)
         {
-            EspeceRepository = especeRepository;
+            _especeRepository = especeRepository;
         }
 
         public void AddEspece(Espece espece)
         {
-            EspeceRepository.AddEspece(espece);
+            _especeRepository.AddEspece(espece);
+        }
+
+        public List<Espece> GetAllEspeces()
+        {
+            return _especeRepository.GetAllEspeces();
+        }
+
+        public Espece GetEspeceById(int id)
+        {
+            return _especeRepository.GetEspeceById(id);
+        }
+
+        public void UpdateEspece(Espece espece)
+        {
+            _especeRepository.UpdateEspece(espece);
+        }
+
+        public void DeleteEspece(int id)
+        {
+            _especeRepository.DeleteEspece(id);
         }
     }
 }
