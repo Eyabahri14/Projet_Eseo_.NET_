@@ -1,83 +1,110 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SW.Models;
+using SW.Services;
+using System.Linq;
 
 namespace SW.Web.Controllers
 {
     public class CitoyenController : Controller
     {
-        // GET: CitoyenController
-        public ActionResult Index()
+        private readonly CitoyenService _citoyenService;
+
+        public CitoyenController(CitoyenService citoyenService)
         {
-            return View();
+            _citoyenService = citoyenService;
         }
 
-        // GET: CitoyenController/Details/5
-        public ActionResult Details(int id)
+        // GET: Citoyen
+        public IActionResult Index()
         {
-            return View();
+            var citoyens = _citoyenService.GetCitoyens();
+            return View(citoyens);
         }
 
-        // GET: CitoyenController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: CitoyenController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        // GET: Citoyen/Add
+        [HttpGet]
+        public IActionResult Add()
         {
-            try
+            var citoyens = _citoyenService.GetCitoyens();
+
+            var viewModel = new AddCitoyenViewModel
             {
+                Peres = citoyens.ToList(),
+                Meres = citoyens.ToList(),
+                Citoyen = new Citoyen()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddCitoyenViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Utilisez viewModel.Citoyen pour accéder aux données saisies
+                _citoyenService.AddCitoyen(viewModel.Citoyen);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            
+            // Rechargez les listes de pères et de mères en cas d'échec de validation.
+            var citoyens = _citoyenService.GetCitoyens();
+            viewModel.Peres = citoyens.ToList();
+            viewModel.Meres = citoyens.ToList();
+
+            // Ajoutez des erreurs de modèle pour chaque erreur de validation
+            ModelState.AddModelError("Citoyen.Peres", "Sélectionnez un père");
+            ModelState.AddModelError("Citoyen.Meres", "Sélectionnez une mère");
+
+            return View(viewModel);
+            
+
+        }
+
+
+        // GET: Citoyen/Edit/5
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var citoyen = _citoyenService.GetCitoyenById(id);
+            if (citoyen == null)
             {
-                return View();
+                return NotFound();
             }
+            return View(citoyen);
         }
 
-        // GET: CitoyenController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CitoyenController/Edit/5
+        // POST: Citoyen/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, Citoyen citoyen)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _citoyenService.UpdateCitoyen(citoyen);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(citoyen);
         }
 
-        // GET: CitoyenController/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Citoyen/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            return View();
+            var citoyen = _citoyenService.GetCitoyenById(id);
+            if (citoyen == null)
+            {
+                return NotFound();
+            }
+            return View(citoyen);
         }
 
-        // POST: CitoyenController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        // POST: Citoyen/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _citoyenService.DeleteCitoyen(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

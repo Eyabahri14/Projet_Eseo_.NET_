@@ -4,7 +4,7 @@
 
 namespace SW.DataAccessLayer.Migrations
 {
-    public partial class Test : Migration
+    public partial class t_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,9 +32,12 @@ namespace SW.DataAccessLayer.Migrations
                     Nom = table.Column<string>(type: "TEXT", nullable: false),
                     Prenom = table.Column<string>(type: "TEXT", nullable: false),
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
-                    EspeceId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PereBiologiqueID = table.Column<int>(type: "INTEGER", nullable: false),
-                    MereBiologiqueID = table.Column<int>(type: "INTEGER", nullable: false)
+                    EspeceId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PereBiologiqueID = table.Column<int>(type: "INTEGER", nullable: true),
+                    MereBiologiqueID = table.Column<int>(type: "INTEGER", nullable: true),
+                    Bonheur = table.Column<int>(type: "INTEGER", nullable: true),
+                    Fertilite = table.Column<int>(type: "INTEGER", nullable: true),
+                    PointsDeMerites = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,20 +46,17 @@ namespace SW.DataAccessLayer.Migrations
                         name: "FK_Citoyens_Citoyens_MereBiologiqueID",
                         column: x => x.MereBiologiqueID,
                         principalTable: "Citoyens",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Citoyens_Citoyens_PereBiologiqueID",
                         column: x => x.PereBiologiqueID,
                         principalTable: "Citoyens",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Citoyens_Especes_EspeceId",
                         column: x => x.EspeceId,
                         principalTable: "Especes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

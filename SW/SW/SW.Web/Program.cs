@@ -16,11 +16,14 @@ builder.Services.AddDbContext<StarWarsDBContext>(options =>
 });
 // Injection de dépendance du CitoyenRepository
 builder.Services.AddScoped<CitoyenRepository>();
+builder.Services.AddScoped<CitoyenService>();
+
 // Injection de dépendance du DivisionCitoyen
-builder.Services.AddScoped<DivisionCitoyen>();
+//builder.Services.AddScoped<DivisionCitoyen>();
 
 builder.Services.AddScoped<EspeceRepository>();
 builder.Services.AddScoped<EspeceService>();
+
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
