@@ -63,6 +63,12 @@ namespace SW.Web.Controllers
             return View(espece);
         }
 
+        // GET: Espece/Delete
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
         // GET: Espece/Delete/5
         [HttpGet]
         public IActionResult Delete(int id)

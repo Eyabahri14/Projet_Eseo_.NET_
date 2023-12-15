@@ -8,30 +8,32 @@ using System.Threading.Tasks;
 
 namespace SW.Services
 {
-    public class DivisionCitoyen
+    public class CitoyenService
     {
+
         private readonly CitoyenRepository _citoyenRepository;
-        public DivisionCitoyen(CitoyenRepository repository)
+
+        public CitoyenService(CitoyenRepository citoyenRepository)
         {
-            _citoyenRepository = repository;
+            _citoyenRepository = citoyenRepository;
         }
 
-        public void AddCitoyen(Citoyen c)
+        public void AddCitoyen(Citoyen citoyen)
         {
-            _citoyenRepository.AddCitoyen(c);
+            _citoyenRepository.AddCitoyen(citoyen);
         }
 
-        public List<Citoyen> GetCitoyens()
+        public List<Citoyen> GetAllCitoyens()
         {
-            return _citoyenRepository.GetAllCitoyens() ;
+            return _citoyenRepository.GetAllCitoyens();
         }
 
-        public Citoyen GetCitoyenById(int id)
+        public Citoyen GetEspeceById(int id)
         {
             return _citoyenRepository.GetCitoyenById(id);
         }
 
-        public void UpdateEspece(Citoyen citoyen)
+        public void UpdateCitoyen(Citoyen citoyen)
         {
             _citoyenRepository.UpdateCitoyen(citoyen);
         }

@@ -10,8 +10,8 @@ using SW.DataAccessLayer;
 namespace SW.DataAccessLayer.Migrations
 {
     [DbContext(typeof(StarWarsDBContext))]
-    [Migration("20231117103006_Test")]
-    partial class Test
+    [Migration("20231215094519_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

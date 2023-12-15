@@ -7,38 +7,17 @@ namespace SW.Web.Controllers
 {
     public class CitoyenController : Controller
     {
-        private readonly DivisionCitoyen _citoyenService; 
+        private readonly CitoyenService _citoyenService;
+
+        public CitoyenController(CitoyenService citoyenService)
+        {
+            _citoyenService = citoyenService;
+        }
         // GET: CitoyenController
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: CitoyenController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CitoyenController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CitoyenController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var citoyens = _citoyenService.GetAllCitoyens(); ;
+            return View(citoyens);
         }
 
         // GET: Citoyen/Add
@@ -101,5 +80,37 @@ namespace SW.Web.Controllers
                 return View();
             }
         }
+
+        // GET: CitoyenController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: CitoyenController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: CitoyenController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        
+
+       
     }
 }

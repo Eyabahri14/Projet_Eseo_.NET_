@@ -23,7 +23,7 @@ namespace SW.DataAccessLayer
             _starWarsDBContext.SaveChanges();
         }
 
-        public List<Citoyen> GetCitoyens()
+        public List<Citoyen> GetAllCitoyens()
         {
             return _starWarsDBContext.Citoyens.ToList();
         }
@@ -43,7 +43,7 @@ namespace SW.DataAccessLayer
             }
         }
 
-        public void DeleteEspece(int id)
+        public void DeleteCitoyen(int id)
         {
             var espece = _starWarsDBContext.Especes.FirstOrDefault(e => e.Id == id);
             if (espece != null)

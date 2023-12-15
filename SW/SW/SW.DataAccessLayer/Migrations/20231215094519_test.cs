@@ -4,7 +4,7 @@
 
 namespace SW.DataAccessLayer.Migrations
 {
-    public partial class Test : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
