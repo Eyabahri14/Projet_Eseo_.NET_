@@ -11,8 +11,8 @@ using SW.DataAccessLayer;
 namespace SW.DataAccessLayer.Migrations
 {
     [DbContext(typeof(StarWarsDBContext))]
-    [Migration("20231209210323_t_migration")]
-    partial class t_migration
+    [Migration("20231226181728_last")]
+    partial class last
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

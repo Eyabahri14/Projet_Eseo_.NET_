@@ -12,6 +12,7 @@ namespace SW.Services
         {
             _citoyenRepository = citoyenRepository;
         }
+    
 
         public void AddCitoyen(Citoyen citoyen)
         {

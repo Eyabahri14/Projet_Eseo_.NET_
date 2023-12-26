@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SW.Models;
 using SW.Services;
+using SW.Web.ViewModels;
 using System.Linq;
 
 namespace SW.Web.Controllers
@@ -22,45 +24,41 @@ namespace SW.Web.Controllers
         }
 
 
-        // GET: Citoyen/Add
         [HttpGet]
         public IActionResult Add()
         {
             var citoyens = _citoyenService.GetCitoyens();
 
-            var viewModel = new AddCitoyenViewModel
+            var viewModel = new Citoyen
             {
-                Peres = citoyens.ToList(),
-                Meres = citoyens.ToList(),
-                Citoyen = new Citoyen()
+                Citoyens = citoyens.ToList()
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddCitoyenViewModel viewModel)
+        public IActionResult Add(Citoyen citoyen)
         {
-            if (ModelState.IsValid)
-            {
-                // Utilisez viewModel.Citoyen pour accéder aux données saisies
-                _citoyenService.AddCitoyen(viewModel.Citoyen);
+            // Chargez à nouveau la liste des citoyens
+              citoyen.Citoyens = _citoyenService.GetCitoyens().ToList();
+
+           // if (ModelState.IsValid)
+            //{
+                // Recherchez le citoyen sélectionné par ID dans la liste des pères
+                citoyen.PereBiologique = citoyen.Citoyens.FirstOrDefault(c => c.Id == citoyen.PereBiologiqueID);
+
+                // Faites de même pour la mère si nécessaire
+                citoyen.MereBiologique = citoyen.Citoyens.FirstOrDefault(c => c.Id == citoyen.MereBiologiqueID);
+
+                _citoyenService.AddCitoyen(citoyen);
                 return RedirectToAction(nameof(Index));
-            }
-            
-            // Rechargez les listes de pères et de mères en cas d'échec de validation.
-            var citoyens = _citoyenService.GetCitoyens();
-            viewModel.Peres = citoyens.ToList();
-            viewModel.Meres = citoyens.ToList();
+            // }
 
-            // Ajoutez des erreurs de modèle pour chaque erreur de validation
-            ModelState.AddModelError("Citoyen.Peres", "Sélectionnez un père");
-            ModelState.AddModelError("Citoyen.Meres", "Sélectionnez une mère");
-
-            return View(viewModel);
-            
-
+            // Si le modèle n'est pas valide, retournez la vue avec le modèle et les erreurs
+            // return View(citoyen);
         }
+
 
 
         // GET: Citoyen/Edit/5

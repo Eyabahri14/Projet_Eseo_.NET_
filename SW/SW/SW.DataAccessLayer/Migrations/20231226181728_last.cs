@@ -4,7 +4,7 @@
 
 namespace SW.DataAccessLayer.Migrations
 {
-    public partial class t_migration : Migration
+    public partial class last : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

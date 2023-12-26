@@ -1,4 +1,4 @@
-﻿@model SW.Models.AddCitoyenViewModel
+﻿@model SW.Models.Citoyen
 
 @{
     ViewData["Title"] = "Add";
@@ -15,30 +15,37 @@
         <form asp-action="Add" asp-controller="Citoyen" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Citoyen.Nom" class="control-label"></label>
-                <input asp-for="Citoyen.Nom" class="form-control" />
-                <span asp-validation-for="Citoyen.Nom" class="text-danger"></span>
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Citoyen.Prenom" class="control-label"></label>
-                <input asp-for="Citoyen.Prenom" class="form-control" />
-                <span asp-validation-for="Citoyen.Prenom" class="text-danger"></span>
+                <label asp-for="Prenom" class="control-label"></label>
+                <input asp-for="Prenom" class="form-control" />
+                <span asp-validation-for="Prenom" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Citoyen.PereBiologiqueID" class="control-label"></label>
-                <select asp-for="Citoyen.PereBiologiqueID" asp-items="@(new SelectList(Model.Peres, "Id", "Nom"))" class="form-control">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <!--Test pour mere et pere biologique -->
+            <div class="form-group">
+                <label asp-for="PereBiologiqueID" class="control-label"></label>
+                <select name="PereBiologiqueID" asp-items="@(new SelectList(Model.Citoyens, "Id", "Nom"))" class="form-control">
                     <option value="">Sélectionnez le père</option>
                 </select>
-                <span asp-validation-for="Citoyen.PereBiologiqueID" class="text-danger"></span>
+                <span asp-validation-for="PereBiologiqueID" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Citoyen.MereBiologiqueID" class="control-label"></label>
-                <select asp-for="Citoyen.MereBiologiqueID" asp-items="@(new SelectList(Model.Meres, "Id", "Nom"))" class="form-control">
+                <label asp-for="MereBiologiqueID" class="control-label"></label>
+                <select name="MereBiologiqueID" asp-items="@(new SelectList(Model.Citoyens, "Id", "Nom"))" class="form-control">
                     <option value="">Sélectionnez la mère</option>
                 </select>
-                <span asp-validation-for="Citoyen.MereBiologiqueID" class="text-danger"></span>
+                <span asp-validation-for="MereBiologiqueID" class="text-danger"></span>
             </div>
 
             <div class="form-group">
