@@ -14,6 +14,9 @@
         public Citoyen? PereBiologique { get; set; }
         public int MereBiologiqueID { get; set; }
         public Citoyen? MereBiologique { get; set; }
+        public int? Bonheur { get; set; }
+        public int? Fertilite { get; set; }
+        public int? PointsDeMerites { get; set; }
 
     }
 }
