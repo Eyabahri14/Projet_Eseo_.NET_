@@ -24,6 +24,9 @@ builder.Services.AddScoped<CitoyenService>();
 builder.Services.AddScoped<EspeceRepository>();
 builder.Services.AddScoped<EspeceService>();
 
+builder.Services.AddScoped<EvenementAleatoireRepository>();
+builder.Services.AddScoped<EvenementAleatoireService>();    
+
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 

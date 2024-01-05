@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace SW.Models
 {
-    public enum TypeEvenementAleatoire
+    public enum Division
     {
-
-
+        Nouveau,
+        Fonctionnaire,
+        Patriote,
+        Professionnel,
+        Travailleur
     }
 }

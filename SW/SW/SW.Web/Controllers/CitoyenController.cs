@@ -10,16 +10,23 @@ namespace SW.Web.Controllers
     public class CitoyenController : Controller
     {
         private readonly CitoyenService _citoyenService;
+        private readonly EvenementAleatoireService _evenementAleatoireService;
 
-        public CitoyenController(CitoyenService citoyenService)
+
+        public CitoyenController(CitoyenService citoyenService, EvenementAleatoireService evenementAleatoire)
         {
             _citoyenService = citoyenService;
+            _evenementAleatoireService = evenementAleatoire;
         }
 
         // GET: Citoyen
         public IActionResult Index()
         {
             var citoyens = _citoyenService.GetCitoyens();
+            var bonheurMoyen = _citoyenService.GetBonheurMoyen();
+
+            ViewBag.BonheurMoyen = bonheurMoyen; 
+
             return View(citoyens);
         }
 
@@ -104,5 +111,17 @@ namespace SW.Web.Controllers
             _citoyenService.DeleteCitoyen(id);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult ApplyRandomEvenement(int id)
+        {
+            var evenementType = _evenementAleatoireService.ApplyRandomEvenementToCitoyen(id);
+
+            var message = $"L'événement aléatoire {evenementType} a été appliqué avec succès sur le citoyen.";
+
+            return Content(message);
+        }
+
+
     }
 }

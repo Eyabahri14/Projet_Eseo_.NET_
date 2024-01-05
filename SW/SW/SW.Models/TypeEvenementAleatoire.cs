@@ -8,7 +8,14 @@ namespace SW.Models
 {
     public enum TypeEvenementAleatoire
     {
-
-
+        CatastropheNaturelle,
+        FeteNationale,
+        RecolteAbondante,
+        Epidemie,
+        MortParentBiologique,
+        PrixScientifique,
+        ExploitSportif,
+        ProjetCommunautaireReussi,
+        IncidentDiplomatique
     }
 }

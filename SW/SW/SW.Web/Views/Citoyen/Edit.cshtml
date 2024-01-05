@@ -1,17 +1,16 @@
 ﻿@model SW.Models.Citoyen
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Edit";
 }
 
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-<h1 class="mb-4">Ajouter un Citoyen</h1>
+<h1 class="mb-4">Modifier</h1>
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Add" asp-controller="Citoyen" method="post" class="needs-validation" novalidate>
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
 
             <div class="mb-3">
                 <label asp-for="Nom" class="form-label">Nom</label>
@@ -32,23 +31,25 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="PereBiologiqueID" class="form-label">Père Biologique</label>
-                <select name="PereBiologiqueID" asp-items="@(new SelectList(Model.Citoyens, "Id", "Nom"))" class="form-select">
-                    <option value="">Sélectionnez le père</option>
-                </select>
-                <span asp-validation-for="PereBiologiqueID" class="text-danger"></span>
+                <label asp-for="Bonheur" class="form-label">Bonheur</label>
+                <input asp-for="Bonheur" class="form-control" required />
+                <span asp-validation-for="Bonheur" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="MereBiologiqueID" class="form-label">Mère Biologique</label>
-                <select name="MereBiologiqueID" asp-items="@(new SelectList(Model.Citoyens, "Id", "Nom"))" class="form-select">
-                    <option value="">Sélectionnez la mère</option>
-                </select>
-                <span asp-validation-for="MereBiologiqueID" class="text-danger"></span>
+                <label asp-for="Fertilite" class="form-label">Fertilité</label>
+                <input asp-for="Fertilite" class="form-control" required />
+                <span asp-validation-for="Fertilite" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Créer</button>
+                <label asp-for="PointsDeMerites" class="form-label">Points de Mérites</label>
+                <input asp-for="PointsDeMerites" class="form-control" required />
+                <span asp-validation-for="PointsDeMerites" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
         </form>
     </div>
