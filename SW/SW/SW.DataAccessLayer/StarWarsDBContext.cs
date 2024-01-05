@@ -16,9 +16,13 @@ namespace SW.DataAccessLayer
 
         public DbSet<Espece> Especes { get; set; }
 
+        public DbSet<EvenementAleatoire> EvenementsAleatoires { get; set; }
+
+
+
         //public DbSet<Distinction> Distinctions { get; set; }
 
-       // public DbSet<Sanction> Sanctions { get; set; }
+        // public DbSet<Sanction> Sanctions { get; set; }
 
 
 

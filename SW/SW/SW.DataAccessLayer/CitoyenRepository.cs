@@ -7,7 +7,7 @@ namespace SW.DataAccessLayer
     public class CitoyenRepository
     {
         private readonly StarWarsDBContext _starWarsDBContext;
-
+    
         public CitoyenRepository(StarWarsDBContext starWarsDBContext)
         {
             _starWarsDBContext = starWarsDBContext;

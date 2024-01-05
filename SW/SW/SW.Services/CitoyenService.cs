@@ -16,6 +16,9 @@ namespace SW.Services
 
         public void AddCitoyen(Citoyen citoyen)
         {
+            citoyen.Fertilite = 0;
+            citoyen.Bonheur = 0;   
+            citoyen.PointsDeMerites = 0; 
             _citoyenRepository.AddCitoyen(citoyen);
         }
 
@@ -38,5 +41,17 @@ namespace SW.Services
         {
             _citoyenRepository.DeleteCitoyen(id);
         }
+
+        public double GetBonheurMoyen()
+        {
+            var citoyens = _citoyenRepository.GetCitoyens();
+            if (citoyens.Any())
+            {
+                var bonheurMoyen = citoyens.Average(c => c.Bonheur ?? 0);
+                return bonheurMoyen;
+            }
+            return 0;
+        }
+
     }
 }
