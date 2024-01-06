@@ -1,83 +1,127 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SW.Models;
+using SW.Services;
+using SW.Web.ViewModels;
+using System.Linq;
 
 namespace SW.Web.Controllers
 {
     public class CitoyenController : Controller
     {
-        // GET: CitoyenController
-        public ActionResult Index()
+        private readonly CitoyenService _citoyenService;
+        private readonly EvenementAleatoireService _evenementAleatoireService;
+
+
+        public CitoyenController(CitoyenService citoyenService, EvenementAleatoireService evenementAleatoire)
         {
-            return View();
+            _citoyenService = citoyenService;
+            _evenementAleatoireService = evenementAleatoire;
         }
 
-        // GET: CitoyenController/Details/5
-        public ActionResult Details(int id)
+        // GET: Citoyen
+        public IActionResult Index()
         {
-            return View();
+            var citoyens = _citoyenService.GetCitoyens();
+            var bonheurMoyen = _citoyenService.GetBonheurMoyen();
+
+            ViewBag.BonheurMoyen = bonheurMoyen; 
+
+            return View(citoyens);
         }
 
-        // GET: CitoyenController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: CitoyenController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpGet]
+        public IActionResult Add()
         {
-            try
+            var citoyens = _citoyenService.GetCitoyens();
+
+            var viewModel = new Citoyen
             {
+                Citoyens = citoyens.ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Citoyen citoyen)
+        {
+            // Chargez à nouveau la liste des citoyens
+              citoyen.Citoyens = _citoyenService.GetCitoyens().ToList();
+
+           // if (ModelState.IsValid)
+            //{
+                // Recherchez le citoyen sélectionné par ID dans la liste des pères
+                citoyen.PereBiologique = citoyen.Citoyens.FirstOrDefault(c => c.Id == citoyen.PereBiologiqueID);
+
+                // Faites de même pour la mère si nécessaire
+                citoyen.MereBiologique = citoyen.Citoyens.FirstOrDefault(c => c.Id == citoyen.MereBiologiqueID);
+
+                _citoyenService.AddCitoyen(citoyen);
+                return RedirectToAction(nameof(Index));
+            // }
+
+            // Si le modèle n'est pas valide, retournez la vue avec le modèle et les erreurs
+            // return View(citoyen);
+        }
+
+
+
+        // GET: Citoyen/Edit/5
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var citoyen = _citoyenService.GetCitoyenById(id);
+            if (citoyen == null)
+            {
+                return NotFound();
+            }
+            return View(citoyen);
+        }
+
+        // POST: Citoyen/Edit/5
+        [HttpPost]
+        public IActionResult Edit(int id, Citoyen citoyen)
+        {
+            if (ModelState.IsValid)
+            {
+                _citoyenService.UpdateCitoyen(citoyen);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(citoyen);
         }
 
-        // GET: CitoyenController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Citoyen/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            return View();
+            var citoyen = _citoyenService.GetCitoyenById(id);
+            if (citoyen == null)
+            {
+                return NotFound();
+            }
+            return View(citoyen);
         }
 
-        // POST: CitoyenController/Edit/5
+        // POST: Citoyen/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _citoyenService.DeleteCitoyen(id);
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult ApplyRandomEvenement(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var evenementType = _evenementAleatoireService.ApplyRandomEvenementToCitoyen(id);
+
+            var message = $"L'événement aléatoire {evenementType} a été appliqué avec succès sur le citoyen.";
+
+            return Content(message);
         }
 
-        // GET: CitoyenController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: CitoyenController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

@@ -1,72 +1,61 @@
-﻿namespace SW.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+
+namespace SW.Models
 {
     
-    public class Citoyen
 
+    public class Citoyen
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
+
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public int Age { get; set; }
-        public Espece Espece { get; set; }
-
-
-        public int PereBiologiqueID { get; set; }
-
+        public Espece? Espece { get; set; }
+        public int? PereBiologiqueID { get; set; }
         public Citoyen? PereBiologique { get; set; }
-        public int MereBiologiqueID { get; set; }
+        public int? MereBiologiqueID { get; set; }
         public Citoyen? MereBiologique { get; set; }
         public int? Bonheur { get; set; }
         public int? Fertilite { get; set; }
         public int? PointsDeMerites { get; set; }
 
-        static private void MethodeUse()
+        public Division Division { get; set; } 
+
+        public List<Citoyen> Citoyens { get; set; }
+
+        public Citoyen()
         {
-            Evenement CitoyenEvent = new Evenement();
-
-            Citoyen citoyen = new Citoyen();
-
-            CitoyenEvent.MyEvent += new DelegueEvenement(citoyen.EvenementSurBonheur);
-
-            CitoyenEvent.MyEvent += new DelegueEvenement(citoyen.EvenementSurFertilite);
-
-            CitoyenEvent.MyEvent += new DelegueEvenement(citoyen.EvenementSurPointsDeMerites);
-
-            //Pour l'instant on déclenche l'événement ici
-            CitoyenEvent.LancerEvenement();
+            Division = Division.Nouveau; 
         }
 
-        public void EvenementSurBonheur(string s)
+        public void MiseAJourDivision()
         {
-            Random aleatoire = new Random();
-
-            int alea = aleatoire.Next(100);
-            
-            Bonheur = Bonheur - alea;
-
-
+            if (PointsDeMerites >= 200)
+            {
+                Division = Division.Patriote;
+            }
+            else if (PointsDeMerites >= 150)
+            {
+                Division = Division.Professionnel;
+            }
+            else if (PointsDeMerites >= 100)
+            {
+                Division = Division.Fonctionnaire;
+            }
+            else if (PointsDeMerites >= 50)
+            {
+                Division = Division.Travailleur;
+            }
+            else
+            {
+                Division = Division.Nouveau;
+            }
         }
 
-        public void EvenementSurFertilite(string s)
-        {
-            Random aleatoire = new Random();
-
-            int alea = aleatoire.Next(100);
-
-            Fertilite = Fertilite - (int)(alea/4);
-
-
-        }
-
-        public void EvenementSurPointsDeMerites(string s)
-        {
-            Random aleatoire = new Random();
-
-            int alea = aleatoire.Next(100);
-
-            PointsDeMerites = PointsDeMerites - (int)(alea / 8);
-
-
-        }
     }
 }

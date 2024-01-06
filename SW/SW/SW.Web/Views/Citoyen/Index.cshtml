@@ -1,0 +1,183 @@
+﻿@model IEnumerable<SW.Models.Citoyen>
+
+@{
+    ViewData["Title"] = "Liste des Citoyens";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <style>
+
+        .container-fluid {
+            margin-top: 20px;
+            text-align: center;
+           
+        }
+
+        .btn {
+            font-size: 18px;
+        }
+
+        th, td {
+            font-size: 18px;
+        }
+
+        .fa {
+            font-size: 18px;
+        }
+
+        .table-responsive {
+            width: 100%; 
+            margin: 0 auto;
+            overflow-x: auto; 
+        }
+
+        .left-align {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary" style="max-width: 16rem; margin-bottom: 1rem;">
+                        <div class="card-header">Population Totale</div>
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.Count()</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success" style="max-width: 16rem; margin-bottom: 1rem;">
+                        <div class="card-header">Bonheur Moyen</div>
+                        <div class="card-body">
+                            @if (ViewBag.BonheurMoyen != null)
+                            {
+                                <h5 class="card-title">@ViewBag.BonheurMoyen.ToString("0.##")</h5>
+                            }
+                            else
+                            {
+                                <p class="card-text">Aucun</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h1>Liste des Citoyens</h1>
+
+        <div class="left-align">
+            <a asp-action="Add" asp-controller="Citoyen" class="btn btn-warning mb-3">Ajouter Nouveau Citoyen</a>
+        </div>
+
+        <br />
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Age</th>
+                        <th>Pere Biologique</th>
+                        <th>Mere Biologique</th>
+                        <th>Division</th>
+                        <th>Bonheur</th>
+                        <th>Fertilite</th>
+                        <th>Points de Mérites</th>
+                        <th>Modifier</th>
+
+                        <th>Supprimer</th>
+                         <th>Evenement Aleatoire </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Prenom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PereBiologique.Nom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MereBiologique.Nom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Division)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Bonheur)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Fertilite)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PointsDeMerites)</td>
+                            <td>
+                                
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm mr-1">
+                                        <i class="fas fa-pencil-alt"></i> 
+                                    </a>
+
+                                  
+
+                                
+                            </td>
+
+                            <td>
+
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm ml-1" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce citoyen ?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+
+
+
+
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="applyRandomEvent(@item.Id)">
+                                    <i class="fas fa-random"></i> Appliquer
+                                </button>
+                            </td>
+
+                        
+                        
+                        
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script>
+    // Votre script ici
+    function applyRandomEvent(citoyenId) {
+        $.ajax({
+            url: "/Citoyen/ApplyRandomEvenement/" + citoyenId,
+            type: "POST",
+            success: function (result) {
+                toastr.success(result);
+            },
+            error: function () {
+                toastr.error("Une erreur s'est produite lors de l'application de l'événement aléatoire.");
+            }
+        });
+    }
+</script>
+
+

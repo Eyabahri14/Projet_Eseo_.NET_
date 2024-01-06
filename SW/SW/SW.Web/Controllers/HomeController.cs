@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SW.Models;
+using SW.Services;
 using SW.Web.Models;
 using System.Diagnostics;
 
@@ -8,14 +10,25 @@ namespace SW.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly EvenementAleatoireService _evenementAleatoireService;
+
+        public HomeController(ILogger<HomeController> logger, EvenementAleatoireService evenementAleatoireService)
         {
             _logger = logger;
+            _evenementAleatoireService = evenementAleatoireService;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        
+        public IActionResult TourSuivant()
+        {
+            
+            _evenementAleatoireService.ApplyRandomEvenementToAllCitoyens();
+            return RedirectToAction(nameof(Index));
         }
 
         public string Test(string param)

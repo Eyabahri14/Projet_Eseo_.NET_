@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SW.DataAccessLayer;
 
@@ -10,9 +11,10 @@ using SW.DataAccessLayer;
 namespace SW.DataAccessLayer.Migrations
 {
     [DbContext(typeof(StarWarsDBContext))]
-    partial class StarWarsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231229014354_evenement")]
+    partial class evenement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.22");
@@ -27,9 +29,6 @@ namespace SW.DataAccessLayer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Bonheur")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Division")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EspeceId")
