@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace SW.Models
 {
-    public enum Division
+    public class Patriote : Citoyen
     {
-        Nouveau,
-        Fonctionnaire,
-        Patriote,
-        Professionnel,
-        Travailleur
     }
-   
 }

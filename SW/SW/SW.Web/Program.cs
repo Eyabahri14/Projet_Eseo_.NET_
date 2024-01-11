@@ -21,6 +21,9 @@ builder.Services.AddScoped<CitoyenService>();
 // Injection de dépendance du DivisionCitoyen
 //builder.Services.AddScoped<DivisionCitoyen>();
 
+// Injection de dépendance du DivisionService
+builder.Services.AddScoped<DivisionService>();
+
 builder.Services.AddScoped<EspeceRepository>();
 builder.Services.AddScoped<EspeceService>();
 
