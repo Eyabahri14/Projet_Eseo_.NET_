@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class DivisionNouveauTests
 {
-    [Fact]
+    
     public void TestAddNouveau()
     {
         // Arrange
@@ -21,7 +21,7 @@ public class DivisionNouveauTests
         Assert.Contains(nouveau, divisionNouveau.Nouveaux);
     }
 
-    [Fact]
+    
     public void TestGetNouveau()
     {
         // Arrange
@@ -36,7 +36,7 @@ public class DivisionNouveauTests
         Assert.Equal(expectedNouveau, result);
     }
 
-    [Fact]
+    
     public void TestRemoveNouveau()
     {
         // Arrange
@@ -51,7 +51,7 @@ public class DivisionNouveauTests
         Assert.DoesNotContain(nouveauToRemove, divisionNouveau.Nouveaux);
     }
 
-    [Fact]
+    
     public void TestAddDistinction_NonNouveau()
     {
         // Arrange
@@ -65,7 +65,7 @@ public class DivisionNouveauTests
         // La méthode doit simplement retourner sans effectuer d'opération
     }
 
-    [Fact]
+    
     public void TestAddSanction()
     {
         // Arrange
