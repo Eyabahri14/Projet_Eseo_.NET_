@@ -13,6 +13,10 @@ namespace SW.DataAccessLayer
             _starWarsDBContext = starWarsDBContext;
         }
 
+        public EspeceRepository()
+        {
+        }
+
         public void AddEspece(Espece espece)
         {
             _starWarsDBContext.Especes.Add(espece);

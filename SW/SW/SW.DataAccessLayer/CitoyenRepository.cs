@@ -12,6 +12,10 @@ namespace SW.DataAccessLayer
             SWDbContext = starWarsDBContext;
         }
 
+        public CitoyenRepository()
+        {
+        }
+
         public void AddCitoyen(Citoyen citoyen)
         {
             // Ajout du citoyen dans le contexte des citoyens
