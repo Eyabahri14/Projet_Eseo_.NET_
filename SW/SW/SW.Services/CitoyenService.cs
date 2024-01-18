@@ -52,6 +52,10 @@ namespace SW.Services
             }
             return 0;
         }
+        public void GenerateArbreGenealogique(Citoyen citoyen)
+        {
+            _citoyenRepository.GenerateArbreGenealogique(citoyen);
+        }
 
     }
 }

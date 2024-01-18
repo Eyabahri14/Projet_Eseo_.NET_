@@ -60,6 +60,36 @@ namespace SW.DataAccessLayer
             }
         }
 
-      
+        public void GenerateArbreGenealogique(Citoyen citoyen)
+        {
+            Console.WriteLine($"Arbre généalogique pour le citoyen {citoyen.Nom} {citoyen.Prenom}:");
+            GenerateArbre(citoyen, 0);
+        }
+
+        private void GenerateArbre(Citoyen citoyen, int level)
+        {
+            // Affiche le nom et prénom du citoyen avec un décalage en fonction du niveau dans l'arbre
+            Console.WriteLine($"{new string(' ', level * 4)}- {citoyen.Nom} {citoyen.Prenom}");
+
+            // Récupère les parents biologiques du citoyen
+            var pere = citoyen.PereBiologique;
+            var mere = citoyen.MereBiologique;
+
+            // Appelle récursivement la méthode pour chaque parent biologique
+            if (pere != null)
+            {
+                Console.WriteLine($"{new string(' ', (level + 1) * 4)}Père:");
+                GenerateArbre(pere, level + 2);
+            }
+
+            if (mere != null)
+            {
+                Console.WriteLine($"{new string(' ', (level + 1) * 4)}Mère:");
+                GenerateArbre(mere, level + 2);
+            }
+        }
+
+
+
     }
 }
