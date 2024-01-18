@@ -42,5 +42,10 @@ namespace SW.Services
         {
             _citoyenRepository.DeleteCitoyen(id);
         }
+
+        public void GenerateArbreGenealogique (Citoyen citoyen)
+        {
+            _citoyenRepository.GenerateArbreGenealogique(citoyen);
+        }
     }
 }

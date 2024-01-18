@@ -109,8 +109,34 @@ namespace SW.Web.Controllers
         }
 
 
-        
 
-       
+        // GET: CitoyenController/GenerateArbreGenalogique
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GenerateArbreGenealogique(int id)
+        {
+            try
+            {
+                var citoyen = _citoyenService.GetEspeceById(id);
+
+                if (citoyen == null)
+                {
+                    // Gérer le cas où le citoyen n'est pas trouvé (par exemple, rediriger vers une page d'erreur)
+                    return RedirectToAction(nameof(Index));
+                }
+
+                _citoyenService.GenerateArbreGenealogique(citoyen);
+
+                // Si l'arbre généalogique est généré avec succès, vous pouvez rediriger vers une autre action ou vue
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions ici (par exemple, journalisation, affichage d'un message d'erreur, etc.)
+                return View();
+            }
+        }
+
+
     }
 }
